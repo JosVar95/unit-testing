@@ -4,7 +4,8 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop" ]
+    types: [ "opened", "reopened" ]
 
 jobs:
   build:
@@ -15,7 +16,10 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Pull and Check
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -25,6 +29,6 @@ jobs:
     - name: Build
       run: |
         npm install
-        npm run build --if-present
         npm run test
+        npm run build --if-present
         
