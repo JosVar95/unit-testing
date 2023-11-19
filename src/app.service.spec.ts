@@ -111,5 +111,8 @@ describe('AppService', () => {
             expect(error.message).toEqual('User not found.');
         }
     });
+
+
+    // Nuevas líneas de código para rama FEATURE/0001-TEST
   });
 });
